@@ -19,11 +19,12 @@ Install-Package GenericRepository.EntityFramework
   * services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   * services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   ```
+  * Annotate key property in enityt classes with [Key] attribute
   * Get the repository object and call functions:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
-                var repository = uow.GetRepository<Department,int>();
+                var repository = uow.GetRepository<Department>();
 
                 foreach (var item in buildings)
                 {
