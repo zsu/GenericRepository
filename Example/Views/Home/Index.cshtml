@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Example.Entities.Department>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-3">
+        <h2>Overview</h2>
+        @foreach (var department in Model)
+        {
+            <div>Building name: @department.Name</div>
+            @foreach (var employee in department.Employees)
+            {
+                <div style="padding-left:15px">Employee name: @employee.Name</div>
+                @foreach (var address in employee.Addresses)
+                {
+                    <div style="padding-left:30px">Address: @address.Number @address.State @address.City @address.State @address.Zipcode</div>
+                }
+            }
+        }
+    </div>
+</div>
