@@ -26,7 +26,7 @@ namespace Example.Controllers
 
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
-                var repository = uow.GetRepository<Department,int>();
+                var repository = uow.GetRepository<Department>();
 
                 //**************************************
 
@@ -70,7 +70,7 @@ namespace Example.Controllers
             {
                 new Department
                 {
-                    Name = "Building one",
+                    Name = "IT",
                     Employees = new List<Employee>
                     {
                         new Employee
@@ -135,7 +135,7 @@ namespace Example.Controllers
 
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
-                var repository = uow.GetRepository<Department,int>();
+                var repository = uow.GetRepository<Department>();
 
                 foreach (var item in buildings)
                 {
@@ -144,7 +144,6 @@ namespace Example.Controllers
 
                 await uow.SaveChangesAsync();
             }
-
             return View();
         }
 

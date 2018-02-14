@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace GenericRepository.Repositories
 {
-    public abstract class EntityRepositoryBase<TContext, TEntity,TKey> : RepositoryBase<TContext>, IRepository<TEntity,TKey> where TContext : DbContext where TEntity : Entity<TKey>, new() where TKey: IComparable
+    public abstract class EntityRepositoryBase<TContext, TEntity> : RepositoryBase<TContext>, IRepository<TEntity> where TContext : DbContext where TEntity : class, new()
 	{
-		private readonly OrderBy<TEntity> DefaultOrderBy = new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
+        private readonly OrderBy<TEntity> DefaultOrderBy = null;// new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
 
 		protected EntityRepositoryBase(ILogger<DataAccess> logger, TContext context) : base(logger, context)
 		{ }
@@ -57,7 +58,23 @@ namespace GenericRepository.Repositories
 			return await result.Skip(startRow).Take(pageLength).ToListAsync();
 		}
 
-		public virtual TEntity Get(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+		public virtual TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+		{
+			IQueryable<TEntity> query = Context.Set<TEntity>();
+
+            if (includes != null)
+            {
+                query = includes(query);
+            }
+            //if(typeof(TEntity).IsSubclassOf(typeof(Entity<>)))
+            //    return query.SingleOrDefault(x => x.Id.Equals(id));
+            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            if (properties.Count() != 1 || !(properties.First().PropertyType== id.GetType()))
+                throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
+            return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
+        }
+
+		public virtual Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
 			IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -66,22 +83,16 @@ namespace GenericRepository.Repositories
                 query = includes(query);
             }
 
-            return query.SingleOrDefault(x => x.Id.Equals(id));
-		}
+            //if (typeof(TEntity).IsSubclassOf(typeof(Entity<>)))
+            //    return query.SingleOrDefaultAsync(x => x.Id.Equals(id));
+            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
+                throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
+            return query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
-		public virtual Task<TEntity> GetAsync(TKey id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
-		{
-			IQueryable<TEntity> query = Context.Set<TEntity>();
+        }
 
-            if (includes != null)
-            {
-                query = includes(query);
-            }
-
-            return query.SingleOrDefaultAsync(x => x.Id.Equals(id));
-		}
-
-		public virtual IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
 			var result = QueryDb(filter, orderBy, includes);
 			return result.ToList();
@@ -139,10 +150,14 @@ namespace GenericRepository.Repositories
             Context.Set<TEntity>().Remove(entity);
 		}
 
-		public virtual void Remove(TKey id)
+		public virtual void Remove(object id)
 		{
-			var entity = new TEntity() { Id = id };
-			this.Remove(entity);
+            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
+                throw new Exception(string.Format("Invalid key type {0}.", id==null?null:id.GetType().Name));
+            var entity = new TEntity();
+            entity.GetType().GetProperty(properties.First().Name).SetValue(entity, id);
+            this.Remove(entity);
 		}
 
         public virtual bool Any(Expression<Func<TEntity, bool>> filter = null)

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GenericRepository.Paging
 {
-    public class DataPager<TEntity,TKey> : IDataPager<TEntity,TKey>
+    public class DataPager<TEntity> : IDataPager<TEntity>
     {
         public DataPager(IUowProvider uowProvider)
         {
@@ -20,7 +20,7 @@ namespace GenericRepository.Paging
         {
             using ( var uow = _uowProvider.CreateUnitOfWork(false) )
             {
-                var repository = uow.GetRepository<TEntity,TKey>();
+                var repository = uow.GetRepository<TEntity>();
 
                 var startRow = ( pageNumber - 1 ) * pageLength;
                 var data = repository.GetPage(startRow, pageLength, includes: includes, orderBy: orderby?.Expression);
@@ -34,7 +34,7 @@ namespace GenericRepository.Paging
         {
             using ( var uow = _uowProvider.CreateUnitOfWork(false) )
             {
-                var repository = uow.GetRepository<TEntity,TKey>();
+                var repository = uow.GetRepository<TEntity>();
 
                 var startRow = ( pageNumber - 1 ) * pageLength;
                 var data = await repository.GetPageAsync(startRow, pageLength, includes: includes, orderBy: orderby?.Expression);
@@ -48,7 +48,7 @@ namespace GenericRepository.Paging
         {
             using ( var uow = _uowProvider.CreateUnitOfWork(false) )
             {
-                var repository = uow.GetRepository<TEntity,TKey>();
+                var repository = uow.GetRepository<TEntity>();
 
                 var startRow = ( pageNumber - 1 ) * pageLength;
                 var data = repository.QueryPage(startRow, pageLength, filter.Expression, includes: includes, orderBy: orderby?.Expression);
@@ -62,7 +62,7 @@ namespace GenericRepository.Paging
         {
             using ( var uow = _uowProvider.CreateUnitOfWork(false) )
             {
-                var repository = uow.GetRepository<TEntity,TKey>();
+                var repository = uow.GetRepository<TEntity>();
 
                 var startRow = ( pageNumber - 1 ) * pageLength;
                 var data = await repository.QueryPageAsync(startRow, pageLength, filter.Expression, includes: includes, orderBy: orderby?.Expression);

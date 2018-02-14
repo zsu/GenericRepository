@@ -37,11 +37,11 @@ namespace GenericRepository.Uow
             return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public IRepository<TEntity,TKey> GetRepository<TEntity,TKey>()
+        public IRepository<TEntity> GetRepository<TEntity>()
         {
             CheckDisposed();
-            var repositoryType = typeof(IRepository<TEntity,TKey>);
-            var repository = (IRepository<TEntity,TKey>)_serviceProvider.GetService(repositoryType);
+            var repositoryType = typeof(IRepository<TEntity>);
+            var repository = (IRepository<TEntity>)_serviceProvider.GetService(repositoryType);
             if (repository == null)
             {
                 throw new RepositoryNotFoundException(repositoryType.Name, String.Format("Repository {0} not found in the IOC container. Check if it is registered during startup.", repositoryType.Name));

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GenericRepository.Tests._TestObjects
 {
-    public class FooRepository : EntityRepositoryBase<InMemoryContext, Foo,int>, IFooRepository
+    public class FooRepository : EntityRepositoryBase<InMemoryContext, Foo>, IFooRepository
     {
         public FooRepository(ILogger<DataAccess> logger, InMemoryContext context) : base(logger, context)
         {

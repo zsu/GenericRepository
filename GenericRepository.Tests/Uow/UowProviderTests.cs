@@ -44,13 +44,13 @@ namespace GenericRepository.Tests.Uow
             var myContext = new InMemoryContext(new Microsoft.EntityFrameworkCore.DbContextOptions<InMemoryContext>());
 
             sp.Setup((o) => o.GetService(typeof(IEntityContext))).Returns(myContext);
-            sp.Setup((o) => o.GetService(typeof(IRepository<Foo,int>))).Returns(new GenericEntityRepository<Foo,int>(logger.Object));
+            sp.Setup((o) => o.GetService(typeof(IRepository<Foo>))).Returns(new GenericEntityRepository<Foo>(logger.Object));
 
             var provider = new UowProvider(logger.Object, sp.Object);
 
             var uow = provider.CreateUnitOfWork();
 
-            uow.GetRepository<Foo,int>();
+            uow.GetRepository<Foo>();
         }
 
     }

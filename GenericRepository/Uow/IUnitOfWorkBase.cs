@@ -12,7 +12,7 @@ namespace GenericRepository.Uow
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        IRepository<TEntity,TKey> GetRepository<TEntity,TKey>();
+        IRepository<TEntity> GetRepository<TEntity>();
         TRepository GetCustomRepository<TRepository>();
     }
 }

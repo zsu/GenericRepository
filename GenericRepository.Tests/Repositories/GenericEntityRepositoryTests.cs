@@ -12,11 +12,11 @@ namespace GenericRepository.Tests.Repositories
     public class GenericEntityRepositoryTests
     {
         private InMemoryContext _context;
-        private IRepository<Foo,int> _fooRepository;
+        private IRepository<Foo> _fooRepository;
 
         public GenericEntityRepositoryTests()
         {
-            _fooRepository = new GenericEntityRepository<Foo,int>(null);
+            _fooRepository = new GenericEntityRepository<Foo>(null);
             _context = InMemoryContext.Create();
             ((IRepositoryInjection)_fooRepository).SetContext(_context);
         }

@@ -35,8 +35,8 @@ namespace GenericRepository.Tests.Startup.ServiceCollectionExtensionsTests
 
             services.AddDataAccess<TestContext>(options => options.UseInMemoryDatabase(connectionstring));
 
-            var registrations = services.Where(sd => sd.ServiceType == typeof(IRepository<,>)
-                                               && sd.ImplementationType == typeof(GenericEntityRepository<,>))
+            var registrations = services.Where(sd => sd.ServiceType == typeof(IRepository<>)
+                                               && sd.ImplementationType == typeof(GenericEntityRepository<>))
                                         .ToArray();
             Assert.Single(registrations);
             Assert.Equal(ServiceLifetime.Transient, registrations[0].Lifetime);
@@ -49,8 +49,8 @@ namespace GenericRepository.Tests.Startup.ServiceCollectionExtensionsTests
 
             services.AddDataAccess<TestContext>(options => options.UseInMemoryDatabase(connectionstring));
 
-            var registrations = services.Where(sd => sd.ServiceType == typeof(IDataPager<,>)
-                                               && sd.ImplementationType == typeof(DataPager<,>))
+            var registrations = services.Where(sd => sd.ServiceType == typeof(IDataPager<>)
+                                               && sd.ImplementationType == typeof(DataPager<>))
                                         .ToArray();
             Assert.Single(registrations);
             Assert.Equal(ServiceLifetime.Transient, registrations[0].Lifetime);

@@ -27,8 +27,8 @@ namespace GenericRepository
             }
             services.AddTransient<DbContextOptions<TEntityContext>>(p => optionBuilder.Options);
             services.TryAddTransient<IEntityContext, TEntityContext>();
-            services.TryAddTransient(typeof(IRepository<,>), typeof(GenericEntityRepository<,>));
-            services.TryAddTransient(typeof(IDataPager<,>), typeof(DataPager<,>));
+            services.TryAddTransient(typeof(IRepository<>), typeof(GenericEntityRepository<>));
+            services.TryAddTransient(typeof(IDataPager<>), typeof(DataPager<>));
         }
 
         private static void ValidateMandatoryField(string field, string fieldName)
