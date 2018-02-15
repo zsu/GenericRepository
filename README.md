@@ -2,11 +2,11 @@
 
 GenericRepository is a data access library using repository pattern.
 
-Some of the features of SessionMessage are:
+Some of the features of GenericRepository are:
 
   * Build-in paging feature
   * Implement Unit of Work pattern
-  * Generic Entity key type
+  * Support different Entity key types
 
 # NuGet
 ```xml
