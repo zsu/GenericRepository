@@ -10,7 +10,7 @@ Some of the features of SessionMessage are:
 
 # NuGet
 ```xml
-Install-Package GenericRepository.EntityFramework
+Install-Package GenericRepository.EntityFrameworkCore
 ```
 # Getting started with GenericRepository
 
