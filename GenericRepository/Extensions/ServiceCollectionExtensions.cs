@@ -11,13 +11,13 @@ namespace GenericRepository
 {
     public static class ServiceCollectionExtentions
     {
-        public static IServiceCollection AddDataAccess<TEntityContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) where TEntityContext : EntityContextBase<TEntityContext>
+        public static IServiceCollection AddDataAccess<TEntityContext>(this IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) where TEntityContext : DbContext,IEntityContext//EntityContextBase<TEntityContext>
         {
             RegisterDataAccess<TEntityContext>(services, optionsAction);
             return services;
         }
 
-        private static void RegisterDataAccess<TEntityContext>(IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) where TEntityContext : EntityContextBase<TEntityContext>
+        private static void RegisterDataAccess<TEntityContext>(IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) where TEntityContext : DbContext,IEntityContext//EntityContextBase<TEntityContext>
         {
             services.TryAddSingleton<IUowProvider, UowProvider>();
             DbContextOptionsBuilder<TEntityContext> optionBuilder = new DbContextOptionsBuilder<TEntityContext>();

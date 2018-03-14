@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GenericRepository.Context
 {
-    interface IEntityContext
+    public interface IEntityContext
     {
     }
 }

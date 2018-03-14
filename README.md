@@ -2,11 +2,11 @@
 
 GenericRepository is a data access library using repository pattern.
 
-Some of the features of SessionMessage are:
+Some of the features of GenericRepository are:
 
   * Build-in paging feature
   * Implement Unit of Work pattern
-  * Generic Entity key type
+  * Support different Entity key types
 
 # NuGet
 ```xml
@@ -19,7 +19,7 @@ Install-Package GenericRepository.EntityFrameworkCore
   * services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   * services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   ```
-  * Annotate key property in enityt classes with [Key] attribute
+  * Annotate key property in entity classes with [Key] attribute
   * Get the repository object and call functions:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
