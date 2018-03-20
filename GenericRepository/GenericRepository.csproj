@@ -16,7 +16,8 @@
     <Description>Generic repository</Description>
     <PackageTags>Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>

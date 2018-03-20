@@ -44,7 +44,7 @@ namespace GenericRepository.Repositories
 
         public virtual IEnumerable<TEntity> GetPage(int startRow, int pageLength, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
-			if ( orderBy == null ) orderBy = DefaultOrderBy.Expression;
+			if ( orderBy == null ) orderBy = DefaultOrderBy?.Expression;
 
 			var result = QueryDb(null, orderBy, includes);
 			return result.Skip(startRow).Take(pageLength).ToList();
@@ -52,7 +52,7 @@ namespace GenericRepository.Repositories
 
 		public virtual async Task<IEnumerable<TEntity>> GetPageAsync(int startRow, int pageLength, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
-			if ( orderBy == null ) orderBy = DefaultOrderBy.Expression;
+			if ( orderBy == null ) orderBy = DefaultOrderBy?.Expression;
 
 			var result = QueryDb(null, orderBy, includes);
 			return await result.Skip(startRow).Take(pageLength).ToListAsync();
@@ -118,7 +118,7 @@ namespace GenericRepository.Repositories
 
         public virtual IEnumerable<TEntity> QueryPage(int startRow, int pageLength, Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
-			if ( orderBy == null ) orderBy = DefaultOrderBy.Expression;
+			if ( orderBy == null ) orderBy = DefaultOrderBy?.Expression;
 
 			var result = QueryDb(filter, orderBy, includes);
 			return result.Skip(startRow).Take(pageLength).ToList();
@@ -126,7 +126,7 @@ namespace GenericRepository.Repositories
 
 		public virtual async Task<IEnumerable<TEntity>> QueryPageAsync(int startRow, int pageLength, Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
-			if ( orderBy == null ) orderBy = DefaultOrderBy.Expression;
+			if ( orderBy == null ) orderBy = DefaultOrderBy?.Expression;
 
 			var result = QueryDb(filter, orderBy, includes);
 			return await result.Skip(startRow).Take(pageLength).ToListAsync();
