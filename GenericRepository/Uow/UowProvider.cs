@@ -40,5 +40,16 @@ namespace GenericRepository.Uow
             var uow = new UnitOfWork(_context, _serviceProvider);
             return uow;
         }
+
+        public IUnitOfWork CreateUnitOfWork(DbContext context,bool trackChanges = true, bool enableLogging = false)
+        {
+            var _context = context;
+
+            if (!trackChanges)
+                _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            var uow = new UnitOfWork(_context, _serviceProvider);
+            return uow;
+        }
     }
 }
