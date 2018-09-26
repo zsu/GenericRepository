@@ -73,8 +73,12 @@ namespace GenericRepository.Repositories
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
             return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
         }
+        public virtual TEntity Get(object[] key)
+        {
+            return FindByKey(key);
+        }
 
-		public virtual Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public virtual Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
 			IQueryable<TEntity> query = Context.Set<TEntity>();
 
@@ -91,7 +95,10 @@ namespace GenericRepository.Repositories
             return query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
         }
-
+        public virtual Task<TEntity> GetAsync(object[] key)
+        {
+            return FindByKeyAsync(key);
+        }
         public virtual IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
 		{
 			var result = QueryDb(filter, orderBy, includes);
@@ -235,5 +242,23 @@ namespace GenericRepository.Repositories
             base.Context.Entry<TEntity>(entity).State = EntityState.Unchanged;
         }
 
+        private TEntity FindByKey(object[] key)
+        {
+            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true)).ToArray();
+            if (properties.Count() == 0)
+                throw new Exception(string.Format("No Key for entity {0}.", typeof(TEntity).Name));
+            if (properties.Count() != key.Count())
+                throw new Exception("Key propertyies number mismatches.");
+            return Context.Set<TEntity>().Find(key);
+        }
+        private Task<TEntity> FindByKeyAsync(object[] key)
+        {
+            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true)).ToArray();
+            if (properties.Count() == 0)
+                throw new Exception(string.Format("No Key for entity {0}.", typeof(TEntity).Name));
+            if (properties.Count() != key.Count())
+                throw new Exception("Key propertyies number mismatches.");
+            return Context.Set<TEntity>().FindAsync(key);
+        }
     }
 }

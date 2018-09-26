@@ -14,7 +14,8 @@ Install-Package GenericRepository.EntityFrameworkCore
 ```
 # Getting started with GenericRepository
 
-  * Call the followings in Startup:  
+  * Implement IEntityContext in the application DbContext class
+  * Add application DbContext in Startup:  
   ```xml
   * services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   * services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
