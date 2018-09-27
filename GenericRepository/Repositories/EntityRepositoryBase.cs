@@ -1,4 +1,5 @@
 ﻿using GenericRepository.Entities;
+using GenericRepository.Paging;
 using GenericRepository.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -242,6 +243,55 @@ namespace GenericRepository.Repositories
             base.Context.Entry<TEntity>(entity).State = EntityState.Unchanged;
         }
 
+        //Paging
+        public DataPage<TEntity> Get(int pageNumber, int pageLength, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+                var startRow = (pageNumber - 1) * pageLength;
+                var data = GetPage(startRow, pageLength, includes: includes, orderBy: orderby?.Expression);
+                var totalCount = Count();
+
+                return CreateDataPage(pageNumber, pageLength, data, totalCount);
+        }
+
+        public async Task<DataPage<TEntity>> GetAsync(int pageNumber, int pageLength, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+                var startRow = (pageNumber - 1) * pageLength;
+                var data = await GetPageAsync(startRow, pageLength, includes: includes, orderBy: orderby?.Expression);
+                var totalCount = await CountAsync();
+
+                return CreateDataPage(pageNumber, pageLength, data, totalCount);
+        }
+
+        public DataPage<TEntity> Query(int pageNumber, int pageLength, Filter<TEntity> filter, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+                var startRow = (pageNumber - 1) * pageLength;
+                var data = QueryPage(startRow, pageLength, filter.Expression, includes: includes, orderBy: orderby?.Expression);
+                var totalCount = Count(filter.Expression);
+
+                return CreateDataPage(pageNumber, pageLength, data, totalCount);
+        }
+
+        public async Task<DataPage<TEntity>> QueryAsync(int pageNumber, int pageLength, Filter<TEntity> filter, OrderBy<TEntity> orderby = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+                var startRow = (pageNumber - 1) * pageLength;
+                var data = await QueryPageAsync(startRow, pageLength, filter.Expression, includes: includes, orderBy: orderby?.Expression);
+                var totalCount = await CountAsync(filter.Expression);
+
+                return CreateDataPage(pageNumber, pageLength, data, totalCount);
+        }
+
+        private DataPage<TEntity> CreateDataPage(int pageNumber, int pageLength, IEnumerable<TEntity> data, long totalEntityCount)
+        {
+            var page = new DataPage<TEntity>()
+            {
+                Data = data,
+                TotalEntityCount = totalEntityCount,
+                PageLength = pageLength,
+                PageNumber = pageNumber
+            };
+
+            return page;
+        }
         private TEntity FindByKey(object[] key)
         {
             var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true)).ToArray();

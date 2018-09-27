@@ -42,18 +42,18 @@ namespace GenericRepository.Tests.Startup.ServiceCollectionExtensionsTests
             Assert.Equal(ServiceLifetime.Transient, registrations[0].Lifetime);
         }
 
-        [Fact]
-        private void DataPagerIsRegisteredAsTransient()
-        {
-            var services = new ServiceCollection();
+        //[Fact]
+        //private void DataPagerIsRegisteredAsTransient()
+        //{
+        //    var services = new ServiceCollection();
 
-            services.AddDataAccess<TestContext>(options => options.UseInMemoryDatabase(connectionstring));
+        //    services.AddDataAccess<TestContext>(options => options.UseInMemoryDatabase(connectionstring));
 
-            var registrations = services.Where(sd => sd.ServiceType == typeof(IDataPager<>)
-                                               && sd.ImplementationType == typeof(DataPager<>))
-                                        .ToArray();
-            Assert.Single(registrations);
-            Assert.Equal(ServiceLifetime.Transient, registrations[0].Lifetime);
-        }
+        //    var registrations = services.Where(sd => sd.ServiceType == typeof(IDataPager<>)
+        //                                       && sd.ImplementationType == typeof(DataPager<>))
+        //                                .ToArray();
+        //    Assert.Single(registrations);
+        //    Assert.Equal(ServiceLifetime.Transient, registrations[0].Lifetime);
+        //}
     }
 }
