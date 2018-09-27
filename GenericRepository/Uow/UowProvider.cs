@@ -30,20 +30,9 @@ namespace GenericRepository.Uow
             return uow;
         }
 
-        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext
+        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext,new()
         {
-            var _context = (TEntityContext)_serviceProvider.GetService(typeof(IEntityContext));
-
-            if (!trackChanges)
-                _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
-            var uow = new UnitOfWork(_context, _serviceProvider);
-            return uow;
-        }
-
-        public IUnitOfWork CreateUnitOfWork(DbContext context,bool trackChanges = true, bool enableLogging = false)
-        {
-            var _context = context;
+            var _context = new TEntityContext();
 
             if (!trackChanges)
                 _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
