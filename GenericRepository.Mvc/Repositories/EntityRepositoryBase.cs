@@ -1,4 +1,6 @@
 ﻿using GenericRepository.Query;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace GenericRepository.Repositories
@@ -67,7 +70,7 @@ namespace GenericRepository.Repositories
             }
             //if(typeof(TEntity).IsSubclassOf(typeof(Entity<>)))
             //    return query.SingleOrDefault(x => x.Id.Equals(id));
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            var properties = GetKeyProperties();
             if (properties.Count() != 1 || !(properties.First().PropertyType== id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
             return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
@@ -88,7 +91,7 @@ namespace GenericRepository.Repositories
 
             //if (typeof(TEntity).IsSubclassOf(typeof(Entity<>)))
             //    return query.SingleOrDefaultAsync(x => x.Id.Equals(id));
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            var properties = GetKeyProperties();
             if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
             return query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
@@ -158,7 +161,7 @@ namespace GenericRepository.Repositories
 
 		public virtual void Remove(object id)
 		{
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            var properties = GetKeyProperties();
             if (properties.Count() != 1 || !(properties.First().PropertyType == id.GetType()))
                 throw new Exception(string.Format("Invalid key type {0}.", id==null?null:id.GetType().Name));
             var entity = new TEntity();
@@ -245,7 +248,7 @@ namespace GenericRepository.Repositories
         }
         private TEntity FindByKey(object[] key)
         {
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true)).ToArray();
+            var properties = GetKeyProperties();
             if (properties.Count() == 0)
                 throw new Exception(string.Format("No Key for entity {0}.", typeof(TEntity).Name));
             if (properties.Count() != key.Count())
@@ -254,12 +257,64 @@ namespace GenericRepository.Repositories
         }
         private Task<TEntity> FindByKeyAsync(object[] key)
         {
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true)).ToArray();
+            var properties = GetKeyProperties();
             if (properties.Count() == 0)
                 throw new Exception(string.Format("No Key for entity {0}.", typeof(TEntity).Name));
             if (properties.Count() != key.Count())
                 throw new Exception("Key propertyies number mismatches.");
             return Context.Set<TEntity>().FindAsync(key);
+        }
+        private IEnumerable<PropertyInfo> GetKeyProperties()
+        {
+            var type = typeof(TEntity);
+
+            List<PropertyInfo> propertMetaData = new List<PropertyInfo>();
+            var types = GetModelMetadataTypes(type);
+            foreach(var t in types)
+            {
+                foreach (var p in t.GetProperties())
+
+                    if (p.GetCustomAttributes(typeof(KeyAttribute), false).Count() > 0)
+                        propertMetaData.Add(p);
+            }
+            if (propertMetaData.Count() > 0)
+                return propertMetaData;
+            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            return properties;
+        }
+        private Type GetModelMetadataType(Attribute attribute)
+        {
+            var type = attribute.GetType();
+            if (type.FullName == "Microsoft.AspNetCore.Mvc.ModelMetadataTypeAttribute")
+            {
+                var property = type.GetProperty("MetadataType");
+                if (property != null && property.CanRead)
+                {
+                    return property.GetValue(attribute, null) as Type;
+                }
+            }
+            return null;
+        }
+
+        private Type[] GetModelMetadataTypes(Type type)
+        {
+            var query = from t in type.BaseTypesAndSelf()
+                        from a in t.GetCustomAttributes(true).Cast<System.Attribute>()
+                        let metaType = GetModelMetadataType(a)
+                        where metaType != null
+                        select metaType;
+            return query.ToArray();
+        }
+    }
+    public static partial class TypeExtensions
+    {
+        public static IEnumerable<Type> BaseTypesAndSelf(this Type type)
+        {
+            while (type != null)
+            {
+                yield return type;
+                type = type.BaseType;
+            }
         }
     }
 }
