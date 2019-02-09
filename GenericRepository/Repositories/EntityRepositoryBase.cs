@@ -278,7 +278,7 @@ namespace GenericRepository.Repositories
                 throw new Exception("Key propertyies number mismatches.");
             return Context.Set<TEntity>().FindAsync(key);
         }
-        private IEnumerable<PropertyInfo> GetKeyProperties()
+        protected virtual IEnumerable<PropertyInfo> GetKeyProperties()
         {
             var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
             return properties;
