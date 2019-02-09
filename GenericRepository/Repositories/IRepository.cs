@@ -61,6 +61,30 @@ namespace GenericRepository.Repositories
         /// <param name="entity">The dictionary to read values from.</param>
         /// <returns></returns>
         TEntity Update(object entity);
+        // Summary:
+        //     Begins tracking the given entity in the Microsoft.EntityFrameworkCore.EntityState.Modified
+        //     state such that it will be updated in the database when Microsoft.EntityFrameworkCore.DbContext.SaveChanges
+        //     is called.
+        //     All properties of the entity will be marked as modified. To mark only some properties
+        //     as modified, use Microsoft.EntityFrameworkCore.DbContext.Attach(System.Object)
+        //     to begin tracking the entity in the Microsoft.EntityFrameworkCore.EntityState.Unchanged
+        //     state and then use the returned Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry
+        //     to mark the desired properties as modified.
+        //     A recursive search of the navigation properties will be performed to find reachable
+        //     entities that are not already being tracked by the context. These entities will
+        //     also begin to be tracked by the context. If a reachable entity has its primary
+        //     key value set then it will be tracked in the Microsoft.EntityFrameworkCore.EntityState.Modified
+        //     state. If the primary key value is not set then it will be tracked in the Microsoft.EntityFrameworkCore.EntityState.Added
+        //     state. An entity is considered to have its primary key value set if the primary
+        //     key property is set to anything other than the CLR default for the property type.
+        //     Use Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry.State to set the
+        //     state of only a single entity.
+        //
+        // Parameters:
+        //   entity:
+        //     The entity to update.
+        //
+        TEntity UpdateWithNavigationProperties(TEntity entity);
         void Remove(TEntity entity);
         void Remove(params object[] keyValues);
 

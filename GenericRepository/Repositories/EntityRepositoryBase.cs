@@ -159,6 +159,11 @@ namespace GenericRepository.Repositories
             Context.Entry(existing).CurrentValues.SetValues(entity);
             return existing;
         }
+        public virtual TEntity UpdateWithNavigationProperties(TEntity entity)
+        {
+            Context.Update(entity);
+            return entity;
+        }
         public virtual void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
