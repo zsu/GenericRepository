@@ -73,7 +73,7 @@ namespace GenericRepository.Repositories
                 throw new Exception(string.Format("Invalid key type {0}.", id == null ? null : id.GetType().Name));
             return query.SingleOrDefault(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
         }
-        public virtual TEntity Get(object[] key)
+        public virtual TEntity Get(params object[] key)
         {
             return Find(key);
         }
@@ -95,7 +95,7 @@ namespace GenericRepository.Repositories
             return query.SingleOrDefaultAsync(x => (x.GetType().GetProperty(properties.First().Name).GetValue(x, null)).Equals(id));
 
         }
-        public virtual Task<TEntity> GetAsync(object[] key)
+        public virtual Task<TEntity> GetAsync(params object[] key)
         {
             return FindAsync(key);
         }
@@ -265,7 +265,7 @@ namespace GenericRepository.Repositories
         {
             base.Context.Entry<TEntity>(entity).State = EntityState.Unchanged;
         }
-        public TEntity Find(object[] key)
+        public TEntity Find(params object[] key)
         {
             var properties = GetKeyProperties();
             if (properties.Count() == 0)
@@ -274,7 +274,7 @@ namespace GenericRepository.Repositories
                 throw new Exception("Key propertyies number mismatches.");
             return Context.Set<TEntity>().Find(key);
         }
-        public Task<TEntity> FindAsync(object[] key)
+        public Task<TEntity> FindAsync(params object[] key)
         {
             var properties = GetKeyProperties();
             if (properties.Count() == 0)

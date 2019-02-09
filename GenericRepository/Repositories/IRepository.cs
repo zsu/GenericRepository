@@ -16,8 +16,8 @@ namespace GenericRepository.Repositories
 
         TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
         Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
-        TEntity Get(object[] key);
-        Task<TEntity> GetAsync(object[] key);
+        TEntity Get(params object[] key);
+        Task<TEntity> GetAsync(params object[] key);
         // Summary:
         //     Finds an entity with the given primary key values. If an entity with the given
         //     primary key values exists in the context, then it is returned immediately without
@@ -29,7 +29,7 @@ namespace GenericRepository.Repositories
         // Parameters:
         //   key:
         //     The values of the primary key for the entity to be found.
-        TEntity Find(object[] key);
+        TEntity Find(params object[] key);
         // Summary:
         //     Finds an entity with the given primary key values. If an entity with the given
         //     primary key values exists in the context, then it is returned immediately without
@@ -41,7 +41,7 @@ namespace GenericRepository.Repositories
         // Parameters:
         //   key:
         //     The values of the primary key for the entity to be found.
-        Task<TEntity> FindAsync(object[] key);
+        Task<TEntity> FindAsync(params object[] key);
 
         IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
         Task<IEnumerable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
