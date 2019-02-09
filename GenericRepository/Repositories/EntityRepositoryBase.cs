@@ -143,11 +143,6 @@ namespace GenericRepository.Repositories
             if (entity == null) throw new InvalidOperationException("Unable to add a null entity to the repository.");
             Context.Set<TEntity>().Add(entity);
         }
-
-        public virtual TEntity Update(TEntity entity)
-        {
-            return Update(entity);
-        }
         public virtual TEntity Update(object entity)
         {
             List<object> keyValues = new List<object>();
@@ -265,7 +260,7 @@ namespace GenericRepository.Repositories
         {
             base.Context.Entry<TEntity>(entity).State = EntityState.Unchanged;
         }
-        public TEntity Find(params object[] key)
+        private TEntity Find(params object[] key)
         {
             var properties = GetKeyProperties();
             if (properties.Count() == 0)
@@ -274,7 +269,7 @@ namespace GenericRepository.Repositories
                 throw new Exception("Key propertyies number mismatches.");
             return Context.Set<TEntity>().Find(key);
         }
-        public Task<TEntity> FindAsync(params object[] key)
+        private Task<TEntity> FindAsync(params object[] key)
         {
             var properties = GetKeyProperties();
             if (properties.Count() == 0)

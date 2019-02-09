@@ -16,32 +16,30 @@ namespace GenericRepository.Repositories
 
 		TEntity Get(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 		Task<TEntity> GetAsync(object id, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        // Summary:
+        //     Finds an entity with the given primary key values. If an entity with the given
+        //     primary key values exists in the context, then it is returned immediately without
+        //     making a request to the store. Otherwise, a request is made to the store for
+        //     an entity with the given primary key values and this entity, if found, is attached
+        //     to the context and returned. If no entity is found in the context or the store,
+        //     then null is returned.
+        //
+        // Parameters:
+        //   key:
+        //     The values of the primary key for the entity to be found.
         TEntity Get(params object[] key);
+        // Summary:
+        //     Finds an entity with the given primary key values. If an entity with the given
+        //     primary key values exists in the context, then it is returned immediately without
+        //     making a request to the store. Otherwise, a request is made to the store for
+        //     an entity with the given primary key values and this entity, if found, is attached
+        //     to the context and returned. If no entity is found in the context or the store,
+        //     then null is returned.
+        //
+        // Parameters:
+        //   key:
+        //     The values of the primary key for the entity to be found.
         Task<TEntity> GetAsync(params object[] key);
-        // Summary:
-        //     Finds an entity with the given primary key values. If an entity with the given
-        //     primary key values exists in the context, then it is returned immediately without
-        //     making a request to the store. Otherwise, a request is made to the store for
-        //     an entity with the given primary key values and this entity, if found, is attached
-        //     to the context and returned. If no entity is found in the context or the store,
-        //     then null is returned.
-        //
-        // Parameters:
-        //   key:
-        //     The values of the primary key for the entity to be found.
-        TEntity Find(params object[] key);
-        // Summary:
-        //     Finds an entity with the given primary key values. If an entity with the given
-        //     primary key values exists in the context, then it is returned immediately without
-        //     making a request to the store. Otherwise, a request is made to the store for
-        //     an entity with the given primary key values and this entity, if found, is attached
-        //     to the context and returned. If no entity is found in the context or the store,
-        //     then null is returned.
-        //
-        // Parameters:
-        //   key:
-        //     The values of the primary key for the entity to be found.
-        Task<TEntity> FindAsync(params object[] key);
 
         IEnumerable<TEntity> Query(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 		Task<IEnumerable<TEntity>> QueryAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
@@ -53,14 +51,6 @@ namespace GenericRepository.Repositories
         Task LoadAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
 
         void Add(TEntity entity);
-
-        /// <summary>
-        //     Sets the values of this dictionary by reading values from another dictionary.
-        //     The other dictionary must be based on the same type as this dictionary, or a
-        //     type derived from the type for this dictionary.
-        /// </summary>
-        /// <param name="entity">The dictionary to read values from.</param>
-        TEntity Update(TEntity entity);
         /// <summary>
         //     Sets the values of this dictionary by reading values out of the given object.
         //     The given object can be of any type. Any property on the object with a name that
