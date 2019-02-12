@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace GenericRepository.Context
+namespace GenericRepository
 {
     public class EntityContextBase<TContext> : DbContext, IEntityContext where TContext : DbContext
     {

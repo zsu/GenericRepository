@@ -1,5 +1,5 @@
 ﻿using System;
-using GenericRepository.Exceptions;
+using GenericRepository;
 using Xunit;
 
 namespace GenericRepository.Tests.Exceptions.EntityNotFoundExceptionTests

@@ -1,8 +1,7 @@
-﻿using GenericRepository.Entities;
-using System;
+﻿using System;
 using System.Linq;
 
-namespace GenericRepository.Query
+namespace GenericRepository
 {
     public class Includes<TEntity>
     {

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using GenericRepository.Context;
-using GenericRepository.Paging;
-using GenericRepository.Repositories;
-using GenericRepository.Uow;
 using Xunit;
 using GenericRepository;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GenericRepository.Exceptions
+namespace GenericRepository
 {
     public class RepositoryNotFoundException : Exception
     {

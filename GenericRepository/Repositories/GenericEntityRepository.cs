@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using GenericRepository.Entities;
 using System;
 
-namespace GenericRepository.Repositories
+namespace GenericRepository
 {
     public class GenericEntityRepository<TEntity> : EntityRepositoryBase<DbContext, TEntity> where TEntity : class, new()
     {

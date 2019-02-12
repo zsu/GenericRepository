@@ -1,10 +1,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using GenericRepository.Entities;
-using GenericRepository.Repositories;
 
-namespace GenericRepository.Uow
+namespace GenericRepository
 {
     public interface IUnitOfWorkBase : IDisposable
     {

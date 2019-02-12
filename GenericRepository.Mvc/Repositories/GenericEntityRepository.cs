@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using GenericRepository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace GenericRepository.Repositories
+namespace GenericRepository.Mvc
 {
     public class GenericEntityRepository<TEntity> : EntityRepositoryBase<DbContext, TEntity> where TEntity : class, new()
     {

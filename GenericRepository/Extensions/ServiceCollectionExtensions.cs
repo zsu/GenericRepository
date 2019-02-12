@@ -1,8 +1,4 @@
 ﻿using System;
-using GenericRepository.Context;
-using GenericRepository.Uow;
-using GenericRepository.Repositories;
-using GenericRepository.Paging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.EntityFrameworkCore;

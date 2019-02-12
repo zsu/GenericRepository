@@ -1,4 +1,4 @@
-﻿using GenericRepository.Repositories;
+﻿using GenericRepository;
 using GenericRepository.Tests._TestObjects;
 using Microsoft.EntityFrameworkCore;
 using System;

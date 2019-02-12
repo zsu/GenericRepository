@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using GenericRepository.Entities;
 
-namespace GenericRepository.Paging
+namespace GenericRepository
 {
     public class DataPage<TEntity>
     {

@@ -1,9 +1,6 @@
 ﻿using Castle.Core.Logging;
 using GenericRepository;
-using GenericRepository.Context;
-using GenericRepository.Repositories;
 using GenericRepository.Tests._TestObjects;
-using GenericRepository.Uow;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GenericRepository.Repositories
+namespace GenericRepository
 {
     public abstract class RepositoryBase<TContext> : IRepositoryInjection where TContext : DbContext
     {

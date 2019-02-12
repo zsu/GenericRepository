@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using GenericRepository.Exceptions;
-using GenericRepository.Repositories;
-using GenericRepository.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GenericRepository.Uow
+namespace GenericRepository
 {
     public abstract class UnitOfWorkBase<TContext> : IUnitOfWorkBase where TContext : DbContext
     {

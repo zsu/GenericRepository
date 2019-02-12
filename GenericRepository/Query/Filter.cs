@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
-using GenericRepository.Entities;
 
-namespace GenericRepository.Query
+namespace GenericRepository
 {
 	public class Filter<TEntity>
 	{

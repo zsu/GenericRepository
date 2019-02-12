@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GenericRepository.Entities
+namespace GenericRepository
 {
     [Serializable]
     public class Entity<TKey>:IComparable<Entity<TKey>> where TKey: IComparable

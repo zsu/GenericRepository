@@ -1,4 +1,4 @@
-﻿using GenericRepository.Context;
+﻿using GenericRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

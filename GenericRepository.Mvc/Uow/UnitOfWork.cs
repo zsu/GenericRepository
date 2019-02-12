@@ -2,7 +2,7 @@
 using GenericRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace GenericRepository.Uow
+namespace GenericRepository.Mvc
 {
     public class UnitOfWork : UnitOfWorkBase<DbContext>, IUnitOfWork
     {

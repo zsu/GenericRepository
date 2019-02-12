@@ -1,5 +1,5 @@
 ﻿using Example.Entities;
-using GenericRepository.Context;
+using GenericRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using GenericRepository.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace GenericRepository.Uow
+namespace GenericRepository
 {
     public class UowProvider : IUowProvider
     {

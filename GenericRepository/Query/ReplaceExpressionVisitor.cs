@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace GenericRepository.Query
+namespace GenericRepository
 {
     public class ReplaceExpressionVisitor : ExpressionVisitor
 	{

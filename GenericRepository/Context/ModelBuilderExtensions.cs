@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace GenericRepository.Context
+namespace GenericRepository
 {
     public static class ModelBuilderExtensions
     {

@@ -1,10 +1,8 @@
-﻿using GenericRepository.Entities;
-using GenericRepository.Query;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GenericRepository.Paging
+namespace GenericRepository
 {
     public interface IDataPager<TEntity>
     {

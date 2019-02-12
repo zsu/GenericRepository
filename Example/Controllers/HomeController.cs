@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GenericRepository;
 using Example.Entities;
-using GenericRepository.Query;
 
 namespace Example.Controllers
 {
