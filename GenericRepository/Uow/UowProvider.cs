@@ -6,9 +6,6 @@ namespace GenericRepository
 {
     public class UowProvider : IUowProvider
     {
-        public UowProvider()
-        { }
-
         public UowProvider(ILogger<DataAccess> logger, IServiceProvider serviceProvider)
         {
             _logger = logger;

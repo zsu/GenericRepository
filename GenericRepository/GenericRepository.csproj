@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.1.5</VersionPrefix>
+    <VersionPrefix>1.2.3</VersionPrefix>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>GenericRepository</AssemblyName>
     <PackageId>GenericRepository.EntityFrameworkCore</PackageId>
@@ -16,8 +16,8 @@
     <Description>Generic repository</Description>
     <PackageTags>Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.2.2</Version>
-    <AssemblyVersion>1.2.2.0</AssemblyVersion>
+    <Version>1.2.3</Version>
+    <AssemblyVersion>1.2.3.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
