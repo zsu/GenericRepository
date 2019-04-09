@@ -6,6 +6,10 @@ namespace GenericRepository
 {
     public abstract class RepositoryBase<TContext> : IRepositoryInjection where TContext : DbContext
     {
+        protected RepositoryBase(TContext context)
+        {
+            this.Context = context;
+        }
         protected RepositoryBase(ILogger<DataAccess> logger, TContext context)
         {
             this.Logger = logger;

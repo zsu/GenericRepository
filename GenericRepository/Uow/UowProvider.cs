@@ -6,6 +6,9 @@ namespace GenericRepository
 {
     public class UowProvider : IUowProvider
     {
+        public UowProvider()
+        {
+        }
         public UowProvider(ILogger<DataAccess> logger, IServiceProvider serviceProvider)
         {
             _logger = logger;
@@ -26,14 +29,13 @@ namespace GenericRepository
             return uow;
         }
 
-        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext
+        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext,new()
         {
-            var _context = (TEntityContext)_serviceProvider.GetService(typeof(TEntityContext));
-
+            var _context = _serviceProvider==null? new TEntityContext() : (TEntityContext)_serviceProvider.GetService(typeof(TEntityContext));
             if (!trackChanges)
                 _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 
-            var uow = new UnitOfWork(_context, _serviceProvider);
+            var uow = _serviceProvider == null ? new UnitOfWork(_context):new UnitOfWork(_context, _serviceProvider);
             return uow;
         }
     }

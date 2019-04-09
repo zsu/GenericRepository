@@ -7,6 +7,10 @@ namespace GenericRepository
 {
     public abstract class UnitOfWorkBase<TContext> : IUnitOfWorkBase where TContext : DbContext
     {
+        protected internal UnitOfWorkBase(TContext context)
+        {
+            _context = context;
+        }
         protected internal UnitOfWorkBase(TContext context, IServiceProvider serviceProvider)
         {
             _context = context;
@@ -34,11 +38,11 @@ namespace GenericRepository
             return _context.SaveChangesAsync(cancellationToken);
         }
 
-        public IRepository<TEntity> GetRepository<TEntity>()
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new()
         {
             CheckDisposed();
             var repositoryType = typeof(IRepository<TEntity>);
-            var repository = (IRepository<TEntity>)_serviceProvider.GetService(repositoryType);
+            var repository = _serviceProvider==null? new GenericEntityRepository<TEntity>() : (IRepository<TEntity>)_serviceProvider.GetService(repositoryType);
             if (repository == null)
             {
                 throw new RepositoryNotFoundException(repositoryType.Name, String.Format("Repository {0} not found in the IOC container. Check if it is registered during startup.", repositoryType.Name));

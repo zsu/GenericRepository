@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenericRepository
 {
-    public class DataPager<TEntity> : IDataPager<TEntity>
+    public class DataPager<TEntity> : IDataPager<TEntity> where TEntity : class, new()
     {
         public DataPager(IUowProvider uowProvider)
         {
@@ -84,7 +84,7 @@ namespace GenericRepository
             return page;
         }
     }
-    public class DataPager<TEntityContext,TEntity> : IDataPager<TEntity> where TEntityContext:DbContext
+    public class DataPager<TEntityContext,TEntity> : IDataPager<TEntity> where TEntityContext : DbContext, new() where TEntity : class, new()
     {
         public DataPager(IUowProvider uowProvider)
         {

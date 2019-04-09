@@ -10,7 +10,7 @@ namespace GenericRepository
         Task<int> SaveChangesAsync();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        IRepository<TEntity> GetRepository<TEntity>();
+        IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new();
         TRepository GetCustomRepository<TRepository>();
     }
 }

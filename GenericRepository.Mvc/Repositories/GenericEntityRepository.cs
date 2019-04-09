@@ -10,7 +10,9 @@ namespace GenericRepository.Mvc
 {
     public class GenericEntityRepository<TEntity> : EntityRepositoryBase<DbContext, TEntity> where TEntity : class, new()
     {
-		public GenericEntityRepository(ILogger<DataAccess> logger) : base(logger, null)
+        public GenericEntityRepository() : base(null)
+        { }
+        public GenericEntityRepository(ILogger<DataAccess> logger) : base(logger, null)
 		{ }
         protected override IEnumerable<PropertyInfo> GetKeyProperties()
         {

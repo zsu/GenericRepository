@@ -14,6 +14,8 @@ namespace GenericRepository
     {
         private readonly OrderBy<TEntity> DefaultOrderBy = null;// new OrderBy<TEntity>(qry => qry.OrderBy(e => e.Id));
 
+        protected EntityRepositoryBase(TContext context) : base(context)
+        { }
         protected EntityRepositoryBase(ILogger<DataAccess> logger, TContext context) : base(logger, context)
         { }
 
