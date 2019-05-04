@@ -1,10 +1,10 @@
 # What is GenericRepository
 
-GenericRepository is a data access library using repository pattern.
+GenericRepository is a data access library using repository pattern with Entity Framework Core.
 
 Some of the features of GenericRepository are:
 
-  * Build-in paging feature
+  * Build-in paging with filter and sorting feature
   * Implement Unit of Work pattern
   * Support different Entity key types
 
@@ -15,19 +15,28 @@ Install-Package GenericRepository.EntityFrameworkCore
 # Getting started with GenericRepository
 
   * Implement IEntityContext in the application DbContext class
-  * Add application DbContext in Startup:  
+  * Add application DbContext in Startup: 
   ```xml
   * services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   * services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   ```
   * Annotate key property in entity classes with [Key] attribute
+  ```xml
+           public class Department
+           {
+                [key]
+                public virtual int Id {get; set;}
+                public virtual string Name {get;set;}
+           }
+  ```
   * Get the repository object and call functions:
+  Unit of Work:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
                 var repository = uow.GetRepository<Department>();
 
-                foreach (var item in buildings)
+                foreach (var item in departments)
                 {
                     repository.Add(item);
                 }
@@ -35,6 +44,19 @@ Install-Package GenericRepository.EntityFrameworkCore
                 await uow.SaveChangesAsync();
             }
   ```
-
+  Filtering, sorting and paging:
+  ```xml
+            Func<IQueryable<Log>, IOrderedQueryable<Log>> orderBy=x=>OrderByDescending(y=>y.CreatedDate);
+            var filter = PredicateBuilder.New<Log>(x => true);           
+            if (!string.IsNullOrEmpty(sessionId))               
+               filter = filter.And(x => x.SessionId == sessionId);
+            if (!string.IsNullOrEmpty(logLevel))               
+               filter = filter.And(x => x.LogLevel== logLevel);
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepository<Log>();
+                return repository.QueryPage(startRow, pageSize, filter, orderBy);           
+            }
+  ```
 # License
 All source code is licensed under MIT license - http://www.opensource.org/licenses/mit-license.php
