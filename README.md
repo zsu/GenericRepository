@@ -29,7 +29,7 @@ Install-Package GenericRepository.EntityFrameworkCore
                 public virtual string Name {get;set;}
            }
   ```
-  * Get the repository object and call functions:
+  * Get the repository object and call functions:  
   Unit of Work:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
