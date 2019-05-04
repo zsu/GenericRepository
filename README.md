@@ -5,7 +5,8 @@ GenericRepository is a data access library using repository pattern with Entity 
 Some of the features of GenericRepository are:
 
   * Build-in paging with filter and sorting feature
-  * Implement Unit of Work pattern
+  * Eager loading support
+  * Unit of Work to support transaction control
   * Support different Entity key types
 
 # NuGet
@@ -27,6 +28,7 @@ Install-Package GenericRepository.EntityFrameworkCore
                 [key]
                 public virtual int Id {get; set;}
                 public virtual string Name {get;set;}
+                public virtual User Staff{get;set;}
            }
   ```
   * Get the repository object and call functions:  
@@ -46,7 +48,7 @@ Install-Package GenericRepository.EntityFrameworkCore
   ```
   Filtering, sorting and paging:
   ```xml
-            Func<IQueryable<Log>, IOrderedQueryable<Log>> orderBy=x=>OrderByDescending(y=>y.CreatedDate);
+            Func<IQueryable<Log>, IOrderedQueryable<Log>> orderBy=x=>x.OrderByDescending(y=>y.CreatedDate);
             var filter = PredicateBuilder.New<Log>(x => true);           
             if (!string.IsNullOrEmpty(sessionId))               
                filter = filter.And(x => x.SessionId == sessionId);
@@ -56,6 +58,19 @@ Install-Package GenericRepository.EntityFrameworkCore
             {
                 var repository = uow.GetRepository<Log>();
                 return repository.QueryPage(startRow, pageSize, filter, orderBy);           
+            }
+  ```
+  Eager loading:
+  ```xml
+            Func<IQueryable<Department>, IOrderedQueryable<Department>> orderBy=x=>x.OrderBy(y=>y.Name);
+            Func<IQueryable<Department>, IQueryable<Department>> include=x=>x.Include(y=>y.Staff);
+            var filter = PredicateBuilder.New<Department>(x => true);           
+            if (!string.IsNullOrEmpty(name))               
+               filter = filter.And(x => x.Name == name);
+            using (var uow = _uowProvider.CreateUnitOfWork())
+            {
+                var repository = uow.GetRepository<Department>();
+                return repository.QueryPage(startRow, pageSize, filter, orderBy,include);           
             }
   ```
 # License
