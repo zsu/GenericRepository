@@ -16,13 +16,13 @@
     <Description>Generic repository</Description>
     <PackageTags>Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.1.1</Version>
-    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <Version>1.1.2</Version>
+    <AssemblyVersion>1.1.2.0</AssemblyVersion>
     <RootNamespace>GenericRepository</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GenericRepository.EntityFrameworkCore" Version="1.2.2" />
+    <PackageReference Include="GenericRepository.EntityFrameworkCore" Version="1.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.2" />
   </ItemGroup>

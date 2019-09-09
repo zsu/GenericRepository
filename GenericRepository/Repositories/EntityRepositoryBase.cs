@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GenericRepository.Extensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -288,7 +289,9 @@ namespace GenericRepository
         }
         protected virtual IEnumerable<PropertyInfo> GetKeyProperties()
         {
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
+            var properties = Context.FindPrimaryKeys<TEntity>();
+            if (properties==null || properties.Count()==0)
+                properties=typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true)).ToList();
             return properties;
         }
         private Expression<Func<TItem, bool>> PropertyEquals<TItem, TValue>(PropertyInfo property, TValue value)

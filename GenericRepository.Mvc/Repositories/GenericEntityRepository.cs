@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using GenericRepository.Extensions;
 
 namespace GenericRepository.Mvc
 {
@@ -13,12 +14,13 @@ namespace GenericRepository.Mvc
         public GenericEntityRepository() : base(null)
         { }
         public GenericEntityRepository(ILogger<DataAccess> logger) : base(logger, null)
-		{ }
+        { }
         protected override IEnumerable<PropertyInfo> GetKeyProperties()
         {
             var type = typeof(TEntity);
 
             List<PropertyInfo> propertMetaData = new List<PropertyInfo>();
+
             var types = GetModelMetadataTypes(type);
             foreach (var t in types)
             {
@@ -29,8 +31,9 @@ namespace GenericRepository.Mvc
             }
             if (propertMetaData.Count() > 0)
                 return propertMetaData;
-            var properties = typeof(TEntity).GetProperties().Where(prop => prop.IsDefined(typeof(KeyAttribute), true));
-            return properties;
+
+            propertMetaData = Context.FindPrimaryKeys<TEntity>().ToList();
+            return propertMetaData;
         }
         private Type GetModelMetadataType(Attribute attribute)
         {
