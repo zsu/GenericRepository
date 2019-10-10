@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>1.2.3</VersionPrefix>
+    <VersionPrefix>1.2.5</VersionPrefix>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>GenericRepository</AssemblyName>
     <PackageId>GenericRepository.EntityFrameworkCore</PackageId>
@@ -13,8 +13,8 @@
     <Copyright>Copyright 2018 Zhicheng Su</Copyright>
     <PackageProjectUrl>https://github.com/zsu/GenericRepository</PackageProjectUrl>
     <RepositoryUrl>https://github.com/zsu/GenericRepository</RepositoryUrl>
-    <Description>Generic repository</Description>
-    <PackageTags>Repository, Entity Framework Core</PackageTags>
+    <Description>Generic repository for .net core</Description>
+    <PackageTags>Generic Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.2.5</Version>
     <AssemblyVersion>1.2.5.0</AssemblyVersion>
