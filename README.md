@@ -21,7 +21,7 @@ Install-Package GenericRepository.EntityFrameworkCore
   * services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   * services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   ```
-  * Annotate key property in entity classes with [Key] attribute
+  * Annotate key property in entity classes with [Key] attribute or use fluent api to define key column
   ```xml
            public class Department
            {
