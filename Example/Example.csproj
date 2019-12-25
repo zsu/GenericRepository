@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GenericRepository.Mvc\GenericRepository.Mvc.csproj" />
+    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
   </ItemGroup>
 
 </Project>

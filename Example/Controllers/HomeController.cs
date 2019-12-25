@@ -143,6 +143,22 @@ namespace Example.Controllers
 
                 await uow.SaveChangesAsync();
             }
+            var Logs = new List<Log>
+            {
+                new Log{Error="Error1"},
+                new Log{Error="Error2"}
+            };
+            using (var uow = _uowProvider.CreateUnitOfWork<SecondAppContext>())
+            {
+                var repository = uow.GetRepository<Log>();
+
+                foreach (var item in Logs)
+                {
+                    repository.Add(item);
+                }
+
+                await uow.SaveChangesAsync();
+            }
             return View();
         }
 

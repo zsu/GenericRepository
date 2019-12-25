@@ -35,7 +35,8 @@ namespace Example
             services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDataAccess<SecondAppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("SecondConnection")));
+            services.AddTransient<SecondAppContext>();
             // Add framework services.
             services.AddMvc();
         }
