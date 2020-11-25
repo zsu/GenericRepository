@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/v/GenericRepository.EntityFrameworkCore.svg)](https://www.nuget.org/packages/GenericRepository.EntityFrameworkCore)
+[![NuGet](https://img.shields.io/nuget/v/GenericRepository.EntityFrameworkCore.Mvc.svg)](https://www.nuget.org/packages/GenericRepository.EntityFrameworkCore.Mvc)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 # What is GenericRepository
