@@ -1,3 +1,6 @@
+[![NuGet](https://img.shields.io/nuget/v/GenericRepository.EntityFrameworkCore.svg)](https://www.nuget.org/packages/GenericRepository.EntityFrameworkCore)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 # What is GenericRepository
 
 GenericRepository is a data access library using repository pattern with Entity Framework Core.
