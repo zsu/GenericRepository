@@ -22,9 +22,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GenericRepository.EntityFrameworkCore" Version="1.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
   </ItemGroup>
 
 </Project>
