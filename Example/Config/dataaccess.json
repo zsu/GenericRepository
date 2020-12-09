@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=GenericRepository;Trusted_Connection=True;MultipleActiveResultSets=true",
-    "SecondConnection": "Server=(localdb)\\mssqllocaldb;Database=GenericRepository2;Trusted_Connection=True;MultipleActiveResultSets=true"
-  }}
