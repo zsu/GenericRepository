@@ -6,7 +6,6 @@
     <AssemblyName>GenericRepository.Mvc</AssemblyName>
     <PackageId>GenericRepository.EntityFrameworkCore.Mvc</PackageId>
     <!--<RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>-->
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <Authors>Zhicheng Su</Authors>
     <Company />
     <PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
