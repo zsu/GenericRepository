@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GenericRepository
 {
-    public interface IGenericService<TEntityContext> where TEntityContext : DbContext//, new()
+    public interface IGenericService<TEntityContext> where TEntityContext : DbContext
     {
         IUnitOfWork CreateUnitOfWork();
         IUnitOfWork CreateUnitOfWork(bool trackChanges);
@@ -62,5 +62,4 @@ namespace GenericRepository
         T UpdateWithNavigationProperties<T>(T item) where T : class, new();
         T UpdateWithNavigationProperties<T>(IUnitOfWork uow, T item) where T : class, new();
     }
-    //public interface IGenericService<TEntityContext> : IGenericService where TEntityContext : DbContext, new() { }
 }

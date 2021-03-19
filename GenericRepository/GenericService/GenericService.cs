@@ -446,20 +446,4 @@ namespace GenericRepository
             repository.Attach(item);
         }
     }
-    /*public class GenericService<TEntityContext> : GenericService, IGenericService<TEntityContext> where TEntityContext : DbContext, new()
-    {
-        private readonly IUowProvider _uowProvider;
-        public GenericService(IUowProvider uowProvider)
-        {
-            _uowProvider = uowProvider;
-        }
-        public override IUnitOfWork CreateUnitOfWork()
-        {
-            return _uowProvider.CreateUnitOfWork<TEntityContext>();
-        }
-        public override IUnitOfWork CreateUnitOfWork(bool trackChanges)
-        {
-            return _uowProvider.CreateUnitOfWork<TEntityContext>(trackChanges);
-        }
-    }*/
 }

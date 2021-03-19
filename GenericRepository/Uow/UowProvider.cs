@@ -29,7 +29,7 @@ namespace GenericRepository
             return uow;
         }
 
-        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext//,new()
+        public IUnitOfWork CreateUnitOfWork<TEntityContext>(bool trackChanges = true, bool enableLogging = false) where TEntityContext : DbContext
         {
             var _context = _serviceProvider==null? (TEntityContext)Activator.CreateInstance(typeof(TEntityContext), new DbContextOptions<TEntityContext>()) : (TEntityContext)_serviceProvider.GetService(typeof(TEntityContext));
             if (!trackChanges)
