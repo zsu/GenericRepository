@@ -35,22 +35,21 @@ Install-Package GenericRepository.EntityFrameworkCore
            }
   ```
   * GenericService provides convenient ways to filter, sort, include navigation properties:
-    * Inject IGenericService
   ```xml
 IGenericService<YourDbContext> _genericeService;
 public HomeControl(IGenericService<YourDbContext> genericService)
  {
-  _genericService=genericService;
+   _genericService=genericService;
  }
   ```
   ```xml
 using(var uow=_genericService.CreateUnitOfWork())
 {
-  var result=_genericService.Query<Department>(x=>x.Name="DName");
-  if(result!=null)
-  {
-    result.Name="DName1";
-  }
+   var result=_genericService.Query<Department>(x=>x.Name="DName");
+   if(result!=null)
+   {
+     result.Name="DName1";
+   }
 }
   ```
 Use Unit of Work directly:
