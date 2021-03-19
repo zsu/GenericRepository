@@ -49,6 +49,7 @@ using(var uow=_genericService.CreateUnitOfWork())
    if(result!=null)
    {
      result.Name="DName1";
+    _genericService.Update<Department>(result);
    }
 }
   ```
