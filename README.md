@@ -21,8 +21,8 @@ Install-Package GenericRepository.EntityFrameworkCore
   * Implement IEntityContext in the application DbContext class
   * Add application DbContext in Startup: 
   ```xml
-  * services.AddDbContext<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
-  * services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
+  * services.AddDbContext<YourDbContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
+  * services.AddDataAccess<YourDbContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   ```
   * Annotate key property in entity classes with [Key] attribute or use fluent api to define key column
   ```xml
@@ -34,8 +34,26 @@ Install-Package GenericRepository.EntityFrameworkCore
                 public virtual User Staff{get;set;}
            }
   ```
-  * Get the repository object and call functions:  
-  Unit of Work:
+  * GenericService provides convenient ways to filter, sort, include navigation properties:
+    * Inject IGenericService
+  ```xml
+IGenericService<YourDbContext> _genericeService;
+public HomeControl(IGenericService<YourDbContext> genericService)
+ {
+  _genericService=genericService;
+ }
+  ```
+  ```xml
+using(var uow=_genericService.CreateUnitOfWork())
+{
+  var result=_genericService.Query<Department>(x=>x.Name="DName");
+  if(result!=null)
+  {
+    result.Name="DName1";
+  }
+}
+  ```
+Use Unit of Work directly:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
