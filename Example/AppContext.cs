@@ -10,6 +10,7 @@ namespace Example
 {
     public class AppContext : EntityContextBase<AppContext>
     {
+        //public AppContext() : base(new DbContextOptions<AppContext>()) { }
         public AppContext(DbContextOptions<AppContext> options) : base(options)
         { }
 

@@ -12,5 +12,6 @@ namespace GenericRepository.Tests
         public TestContext(DbContextOptions<TestContext> options)
             : base(options)
         { }
+        public TestContext():base(new DbContextOptions<TestContext>()) { }
     }
 }

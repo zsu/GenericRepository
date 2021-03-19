@@ -84,7 +84,7 @@ namespace GenericRepository
             return page;
         }
     }
-    public class DataPager<TEntityContext,TEntity> : IDataPager<TEntity> where TEntityContext : DbContext, new() where TEntity : class, new()
+    public class DataPager<TEntityContext,TEntity> : IDataPager<TEntity> where TEntityContext : DbContext where TEntity : class, new()//, new() where TEntity : class, new()
     {
         public DataPager(IUowProvider uowProvider)
         {
