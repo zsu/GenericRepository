@@ -63,13 +63,13 @@ using(var uow=_genericService.CreateUnitOfWork())
    var result2=_genericService.Query<Department>(x=>x.Name="name2");
    if(result2!=null)
    {
-     result.Name="namechange2";
+     result2.Name="namechange2";
     _genericService.Update(uow,result2);
    }
    uow.SaveChanges();
 }
   ```
-Use Unit of Work directly:
+Alternative is to use Unit of Work:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
