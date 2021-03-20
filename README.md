@@ -91,7 +91,7 @@ using(var uow=_genericService.CreateUnitOfWork())
                ,x=>(sessionId==null || x.SessionId==sessionId) 
                && (logLevel==null || x.LogLevel==logLevel)
                , x=>x.OrderByDescending(y=>y.CreatedDate)
-               ,x=>x.Include(y=>y.Staff));
+               , x=>x.Include(y=>y.Staff));
                return result;
             }
   ```
