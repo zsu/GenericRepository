@@ -42,7 +42,7 @@ public HomeControl(IGenericService<YourDbContext> genericService)
    _genericService=genericService;
  }
   ```
-    ```xml
+  ```xml
  var result=_genericService.Query<Department>(x=>x.Name="name1");
  if(result!=null)
  {
@@ -50,6 +50,7 @@ public HomeControl(IGenericService<YourDbContext> genericService)
   _genericService.Update<Department>(result);
  }
   ```
+   * Multiple CRUD in one transaction
   ```xml
 using(var uow=_genericService.CreateUnitOfWork())
 {
