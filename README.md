@@ -49,7 +49,7 @@ public HomeControl(IGenericService<YourDbContext> genericService)
    result.Name="namechange1";
   _genericService.Update<Department>(result);
  }
-  ```
+  ``` 
    * Multiple CRUD in one transaction
   ```xml
 using(var uow=_genericService.CreateUnitOfWork())
