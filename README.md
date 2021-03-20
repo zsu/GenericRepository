@@ -83,21 +83,15 @@ Alternative is to use Unit of Work:
                 await uow.SaveChangesAsync();
             }
   ```
-  Filtering, sorting and paging:
+  Filtering, sorting, paging and eager loading:
   ```xml
-            Func<IQueryable<Log>, IOrderedQueryable<Log>> orderBy=x=>x.OrderByDescending(y=>y.CreatedDate);
-            var filter = PredicateBuilder.New<Log>(x => true);           
-            if (!string.IsNullOrEmpty(sessionId))               
-               filter = filter.And(x => x.SessionId == sessionId);
-            if (!string.IsNullOrEmpty(logLevel))               
-               filter = filter.And(x => x.LogLevel== logLevel);
-            using (var uow = _uowProvider.CreateUnitOfWork())
+            using(var uow=_genericService.CreateUnitOfWork())
             {
-                var repository = uow.GetRepository<Log>();
-                return repository.QueryPage(startRow, pageSize, filter, orderBy);           
+               var result=_genericService.QueryPage<Log>(startRow,pageSize,x=>(sessionId==null || x.SessionId==sessionId) && (logLevel==null ||         x.LogLevel==logLevel), x=>x.OrderByDescending(y=>y.CreatedDate),x=>x.Include(y=>y.Staff));
+                return result;
             }
   ```
-  Eager loading:
+  Or
   ```xml
             Func<IQueryable<Department>, IOrderedQueryable<Department>> orderBy=x=>x.OrderBy(y=>y.Name);
             Func<IQueryable<Department>, IQueryable<Department>> include=x=>x.Include(y=>y.Staff);
