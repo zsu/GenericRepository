@@ -42,15 +42,30 @@ public HomeControl(IGenericService<YourDbContext> genericService)
    _genericService=genericService;
  }
   ```
+    ```xml
+ var result=_genericService.Query<Department>(x=>x.Name="name1");
+ if(result!=null)
+ {
+   result.Name="namechange1";
+  _genericService.Update<Department>(result);
+ }
+  ```
   ```xml
 using(var uow=_genericService.CreateUnitOfWork())
 {
-   var result=_genericService.Query<Department>(x=>x.Name="DName");
+   var result=_genericService.Query<Department>(x=>x.Name="name1");
    if(result!=null)
    {
-     result.Name="DName1";
-    _genericService.Update<Department>(result);
+     result.Name="name1change1";
+    _genericService.Update(uow,result);
    }
+   var result2=_genericService.Query<Department>(x=>x.Name="name2");
+   if(result2!=null)
+   {
+     result.Name="namechange2";
+    _genericService.Update(uow,result2);
+   }
+   uow.SaveChanges();
 }
   ```
 Use Unit of Work directly:
