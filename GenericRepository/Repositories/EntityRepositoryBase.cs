@@ -147,7 +147,7 @@ namespace GenericRepository
             if (entity == null) throw new InvalidOperationException("Unable to add a null entity to the repository.");
             Context.Set<TEntity>().Add(entity);
         }
-        public virtual TEntity Update(object entity)
+        public virtual TEntity Update(TEntity entity)
         {
             List<object> keyValues = new List<object>();
             var properties = GetKeyProperties();

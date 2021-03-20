@@ -57,8 +57,8 @@ namespace GenericRepository
         string Remove<T>(IUnitOfWork uow, T item) where T : class, new();
         IUnitOfWork SetUnchanged<T>(T item) where T : class, new();
         void SetUnchanged<T>(IUnitOfWork uow, T item) where T : class, new();
-        string Update<T>(object item) where T : class, new();
-        string Update<T>(IUnitOfWork uow, object item) where T : class, new();
+        string Update<T>(T item) where T : class, new();
+        string Update<T>(IUnitOfWork uow, T item) where T : class, new();
         T UpdateWithNavigationProperties<T>(T item) where T : class, new();
         T UpdateWithNavigationProperties<T>(IUnitOfWork uow, T item) where T : class, new();
     }

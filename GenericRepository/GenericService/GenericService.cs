@@ -52,7 +52,7 @@ namespace GenericRepository
             repository.Add(item);
             return null;
         }
-        public virtual string Update<T>(object item) where T : class, new()
+        public virtual string Update<T>(T item) where T : class, new()
         {
             if (item == null)
                 throw new ArgumentNullException("item");
@@ -64,7 +64,7 @@ namespace GenericRepository
             }
             return null;
         }
-        public virtual string Update<T>(IUnitOfWork uow, object item) where T : class, new()
+        public virtual string Update<T>(IUnitOfWork uow, T item) where T : class, new()
         {
             if (uow == null)
                 throw new ArgumentNullException("uow");

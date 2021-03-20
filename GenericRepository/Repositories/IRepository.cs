@@ -60,7 +60,7 @@ namespace GenericRepository
         /// </summary>
         /// <param name="entity">The dictionary to read values from.</param>
         /// <returns></returns>
-        TEntity Update(object entity);
+        TEntity Update(TEntity entity);
         // Summary:
         //     Begins tracking the given entity in the Microsoft.EntityFrameworkCore.EntityState.Modified
         //     state such that it will be updated in the database when Microsoft.EntityFrameworkCore.DbContext.SaveChanges
