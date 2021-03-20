@@ -87,8 +87,12 @@ using(var uow=_genericService.CreateUnitOfWork())
   ```xml
             using(var uow=_genericService.CreateUnitOfWork())
             {
-               var result=_genericService.QueryPage<Log>(startRow,pageSize,x=>(sessionId==null || x.SessionId==sessionId) && (logLevel==null ||         x.LogLevel==logLevel), x=>x.OrderByDescending(y=>y.CreatedDate),x=>x.Include(y=>y.Staff));
-                return result;
+               var result=_genericService.QueryPage<Log>(startRow,pageSize
+               ,x=>(sessionId==null || x.SessionId==sessionId) 
+               && (logLevel==null || x.LogLevel==logLevel)
+               , x=>x.OrderByDescending(y=>y.CreatedDate)
+               ,x=>x.Include(y=>y.Staff));
+               return result;
             }
   ```
   Or
