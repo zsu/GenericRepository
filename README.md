@@ -69,7 +69,7 @@ using(var uow=_genericService.CreateUnitOfWork())
    uow.SaveChanges();
 }
   ```
-Alternative is to use Unit of Work:
+   * Alternative is to use Unit of Work:
   ```xml
             using (var uow = _uowProvider.CreateUnitOfWork())
             {
@@ -83,7 +83,7 @@ Alternative is to use Unit of Work:
                 await uow.SaveChangesAsync();
             }
   ```
-  Filtering, sorting, paging and eager loading:
+   * Filtering, sorting, paging and eager loading:
   ```xml
             using(var uow=_genericService.CreateUnitOfWork())
             {
