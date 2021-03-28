@@ -26,13 +26,13 @@ Install-Package GenericRepository.EntityFrameworkCore
   ```
   * Annotate key property in entity classes with [Key] attribute or use fluent api to define key column
   ```xml
-           public class Department
-           {
-                [key]
-                public virtual int Id {get; set;}
-                public virtual string Name {get;set;}
-                public virtual User Staff{get;set;}
-           }
+     public class Department
+     {
+          [key]
+          public virtual int Id {get; set;}
+          public virtual string Name {get;set;}
+          public virtual User Staff{get;set;}
+     }
   ```
   * GenericService provides convenient ways to filter, sort, include navigation properties:
   ```xml
