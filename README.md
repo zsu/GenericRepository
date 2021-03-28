@@ -36,71 +36,71 @@ Install-Package GenericRepository.EntityFrameworkCore
   ```
   * GenericService provides convenient ways to filter, sort, include navigation properties:
   ```xml
-IGenericService<YourDbContext> _genericeService;
-public HomeControl(IGenericService<YourDbContext> genericService)
- {
-   _genericService=genericService;
- }
-  ```
-  ```xml
- var result=_genericService.Query<Department>(x=>x.Name="name1");
- if(result!=null)
- {
-    result.Name="namechange1";
-   _genericService.Update<Department>(result);
- }
+    IGenericService<YourDbContext> _genericeService;
+    public HomeControl(IGenericService<YourDbContext> genericService)
+     {
+         _genericService=genericService;
+     }
+      ```
+      ```xml
+     var result=_genericService.Query<Department>(x=>x.Name="name1");
+     if(result!=null)
+     {
+          result.Name="namechange1";
+         _genericService.Update<Department>(result);
+     }
   ``` 
    * Multiple CRUD in one transaction
   ```xml
-using(var uow=_genericService.CreateUnitOfWork())
-{
-   var result=_genericService.Query<Department>(x=>x.Name="name1");
-   if(result!=null)
-   {
-     result.Name="name1change1";
-    _genericService.Update(uow,result);
-   }
-   var result2=_genericService.Query<Department>(x=>x.Name="name2");
-   if(result2!=null)
-   {
-     result2.Name="namechange2";
-    _genericService.Update(uow,result2);
-   }
-   uow.SaveChanges();
-}
+     using(var uow=_genericService.CreateUnitOfWork())
+     {
+        var result=_genericService.Query<Department>(x=>x.Name="name1");
+        if(result!=null)
+        {
+          result.Name="name1change1";
+         _genericService.Update(uow,result);
+        }
+        var result2=_genericService.Query<Department>(x=>x.Name="name2");
+        if(result2!=null)
+        {
+          result2.Name="namechange2";
+         _genericService.Update(uow,result2);
+        }
+        uow.SaveChanges();
+     }
   ```
    * Alternative is to use Unit of Work:
   ```xml
-using (var uow = _uowProvider.CreateUnitOfWork())
-{
-    var repository = uow.GetRepository<Department>();
+     using (var uow = _uowProvider.CreateUnitOfWork())
+     {
+         var repository = uow.GetRepository<Department>();
 
-    foreach (var item in departments)
-    {
-        repository.Add(item);
-    }
+         foreach (var item in departments)
+         {
+             repository.Add(item);
+         }
 
-    await uow.SaveChangesAsync();
-}
+         await uow.SaveChangesAsync();
+     }
   ```
    * Filtering, sorting, paging and eager loading:
   ```xml
-var result=_genericService.QueryPage<Log>(startRow,pageSize
-,x=>(sessionId==null || x.SessionId==sessionId) 
-&& (logLevel==null || x.LogLevel==logLevel)
-, x=>x.OrderByDescending(y=>y.CreatedDate)
-, x=>x.Include(y=>y.Staff));
-return result;
+     var result=_genericService.QueryPage<Log>(startRow,pageSize,
+                 x=>(sessionId==null || x.SessionId==sessionId) 
+                 && (logLevel==null || x.LogLevel==logLevel),
+                 x=>x.OrderByDescending(y=>y.CreatedDate),
+                 x=>x.Include(y=>y.Staff));
+     return result;
   ```
   Or
   ```xml
-Func<IQueryable<Department>, IOrderedQueryable<Department>> orderBy=x=>x.OrderBy(y=>y.Name);
-Func<IQueryable<Department>, IQueryable<Department>> include=x=>x.Include(y=>y.Staff);
-var filter = PredicateBuilder.New<Department>(x => true);           
-if (!string.IsNullOrEmpty(name))               
-   filter = filter.And(x => x.Name == name);
-var repository = uow.GetRepository<Department>();
-return repository.QueryPage(startRow, pageSize, filter, orderBy,include);           
+     Func<IQueryable<Department>, IOrderedQueryable<Department>> orderBy=x=>x.OrderBy(y=>y.Name);
+     Func<IQueryable<Department>, IQueryable<Department>> include=x=>x.Include(y=>y.Staff);
+     var filter = PredicateBuilder.New<Department>(x => true);           
+     if (!string.IsNullOrEmpty(name))               
+        filter = filter.And(x => x.Name == name);
+     var repository = uow.GetRepository<Department>();
+     return repository.QueryPage(startRow, pageSize, filter, orderBy,include);           
   ```
 # License
 All source code is licensed under MIT license - http://www.opensource.org/licenses/mit-license.php
