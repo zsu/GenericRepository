@@ -85,15 +85,12 @@ using(var uow=_genericService.CreateUnitOfWork())
   ```
    * Filtering, sorting, paging and eager loading:
   ```xml
-            using(var uow=_genericService.CreateUnitOfWork())
-            {
-               var result=_genericService.QueryPage<Log>(startRow,pageSize
-               ,x=>(sessionId==null || x.SessionId==sessionId) 
-               && (logLevel==null || x.LogLevel==logLevel)
-               , x=>x.OrderByDescending(y=>y.CreatedDate)
-               , x=>x.Include(y=>y.Staff));
-               return result;
-            }
+            var result=_genericService.QueryPage<Log>(startRow,pageSize
+            ,x=>(sessionId==null || x.SessionId==sessionId) 
+            && (logLevel==null || x.LogLevel==logLevel)
+            , x=>x.OrderByDescending(y=>y.CreatedDate)
+            , x=>x.Include(y=>y.Staff));
+            return result;
   ```
   Or
   ```xml
@@ -102,11 +99,8 @@ using(var uow=_genericService.CreateUnitOfWork())
             var filter = PredicateBuilder.New<Department>(x => true);           
             if (!string.IsNullOrEmpty(name))               
                filter = filter.And(x => x.Name == name);
-            using (var uow = _uowProvider.CreateUnitOfWork())
-            {
-                var repository = uow.GetRepository<Department>();
-                return repository.QueryPage(startRow, pageSize, filter, orderBy,include);           
-            }
+            var repository = uow.GetRepository<Department>();
+            return repository.QueryPage(startRow, pageSize, filter, orderBy,include);           
   ```
 # License
 All source code is licensed under MIT license - http://www.opensource.org/licenses/mit-license.php
