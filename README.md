@@ -21,8 +21,8 @@ Install-Package GenericRepository.EntityFrameworkCore
   * Implement IEntityContext in the application DbContext class
   * Add application DbContext in Startup: 
   ```xml
-  * services.AddDbContext<YourDbContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
-  * services.AddDataAccess<YourDbContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
+     services.AddDbContext<YourDbContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
+     services.AddDataAccess<YourDbContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
   ```
   * Annotate key property in entity classes with [Key] attribute or use fluent api to define key column
   ```xml
