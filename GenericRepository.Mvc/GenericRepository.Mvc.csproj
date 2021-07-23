@@ -15,8 +15,8 @@
     <Description>EntityFramework GenericRepository Mvc extensions</Description>
     <PackageTags>Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.3</Version>
-    <AssemblyVersion>2.3.0.0</AssemblyVersion>
+    <Version>2.4</Version>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
     <RootNamespace>GenericRepository</RootNamespace>
     <Product>EntityFramework GenericRepository Mvc extensions</Product>
   </PropertyGroup>
