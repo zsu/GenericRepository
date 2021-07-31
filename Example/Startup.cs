@@ -30,7 +30,6 @@ namespace Example
 
             services.AddDataAccess<AppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDataAccess<SecondAppContext>(options => options.UseInMemoryDatabase(Configuration.GetConnectionString("SecondConnection")));
-            services.AddTransient<SecondAppContext>(); 
             services.AddMvc();
         }
 
