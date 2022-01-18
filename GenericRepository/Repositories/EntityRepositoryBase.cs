@@ -142,6 +142,34 @@ namespace GenericRepository
             return await result.Skip(startRow).Take(pageLength).ToListAsync();
         }
 
+        #region IQueryable
+        public virtual IQueryable<TEntity> QueryExpression(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+            var result = QueryDb(filter, orderBy, includes);
+            return result;
+        }
+        public virtual async Task<IQueryable<TEntity>> QueryExpressionAsync(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+            var result = QueryDb(filter, orderBy, includes);
+            return result;
+        }
+        public virtual IQueryable<TEntity> QueryPageExpression(int startRow, int pageLength, Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+            if (orderBy == null) orderBy = DefaultOrderBy?.Expression;
+
+            var result = QueryDb(filter, orderBy, includes);
+            return result.Skip(startRow).Take(pageLength);
+        }
+
+        public virtual async Task<IQueryable<TEntity>> QueryPageExpressionAsync(int startRow, int pageLength, Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+            if (orderBy == null) orderBy = DefaultOrderBy?.Expression;
+
+            var result = QueryDb(filter, orderBy, includes);
+            return result.Skip(startRow).Take(pageLength);
+        }
+        #endregion
+
         public virtual void Add(TEntity entity)
         {
             if (entity == null) throw new InvalidOperationException("Unable to add a null entity to the repository.");
