@@ -138,9 +138,9 @@ namespace GenericRepository
             repository.Remove(keys);
             return null;
         }
-        public IEnumerable<T> GetAll<T>(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public IEnumerable<T> GetAll<T>(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges=false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.GetAll(orderBy, includes);
@@ -153,9 +153,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return repository.GetAll(orderBy, includes);
         }
-        public async Task<IEnumerable<T>> GetAllAsync<T>(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public async Task<IEnumerable<T>> GetAllAsync<T>(Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return await repository.GetAllAsync(orderBy, includes);
@@ -168,17 +168,17 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return await repository.GetAllAsync(orderBy, includes);
         }
-        public virtual T Get<T>(object id, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual T Get<T>(object id, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = true) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.Get(id, includes);
             }
         }
-        public virtual T Get<T>(params object[] keys) where T : class, new()
+        public virtual T Get<T>(bool trackChanges = true, params object[] keys) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.Get(keys);
@@ -198,17 +198,17 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return repository.Get(keys);
         }
-        public virtual Task<T> GetAsync<T>(object id, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual Task<T> GetAsync<T>(object id, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = true) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.GetAsync(id, includes);
             }
         }
-        public virtual Task<T> GetAsync<T>(params object[] keys) where T : class, new()
+        public virtual Task<T> GetAsync<T>(bool trackChanges = true,params object[] keys) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.GetAsync(keys);
@@ -229,9 +229,9 @@ namespace GenericRepository
             return repository.GetAsync(keys);
         }
 
-        public virtual IEnumerable<T> Query<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual IEnumerable<T> Query<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.Query(filter, orderBy, includes);
@@ -244,9 +244,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return repository.Query(filter, orderBy, includes);
         }
-        public virtual async Task<IEnumerable<T>> QueryAsync<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual async Task<IEnumerable<T>> QueryAsync<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return await repository.QueryAsync(filter, orderBy, includes);
@@ -259,9 +259,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return await repository.QueryAsync(filter, orderBy, includes);
         }
-        public virtual IEnumerable<T> GetPage<T>(int startRow, int pageLength, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual IEnumerable<T> GetPage<T>(int startRow, int pageLength, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.GetPage(startRow, pageLength, orderBy, includes);
@@ -274,9 +274,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return repository.GetPage(startRow, pageLength, orderBy, includes);
         }
-        public virtual async Task<IEnumerable<T>> GetPageAsync<T>(int startRow, int pageLength, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual async Task<IEnumerable<T>> GetPageAsync<T>(int startRow, int pageLength, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return await repository.GetPageAsync(startRow, pageLength, orderBy, includes);
@@ -289,9 +289,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return await repository.GetPageAsync(startRow, pageLength, orderBy, includes);
         }
-        public virtual IEnumerable<T> QueryPage<T>(int startRow, int pageLength, Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual IEnumerable<T> QueryPage<T>(int startRow, int pageLength, Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.QueryPage(startRow, pageLength, filter, orderBy, includes);
@@ -304,9 +304,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return repository.QueryPage(startRow, pageLength, filter, orderBy, includes);
         }
-        public virtual async Task<IEnumerable<T>> QueryPageAsync<T>(int startRow, int pageLength, Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual async Task<IEnumerable<T>> QueryPageAsync<T>(int startRow, int pageLength, Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 return await repository.QueryPageAsync(startRow, pageLength, filter, orderBy, includes);
@@ -319,9 +319,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return await repository.QueryPageAsync(startRow, pageLength, filter, orderBy, includes);
         }
-        public virtual void Load<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual void Load<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 repository.LoadAsync(filter, orderBy, includes);
@@ -334,9 +334,9 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             repository.LoadAsync(filter, orderBy, includes);
         }
-        public virtual async Task LoadAsync<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual async Task LoadAsync<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
                 await repository.LoadAsync(filter, orderBy, includes);
@@ -351,7 +351,7 @@ namespace GenericRepository
         }
         public virtual bool Any<T>(Expression<Func<T, bool>> filter = null) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(false))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.Any(filter);
@@ -366,7 +366,7 @@ namespace GenericRepository
         }
         public virtual async Task<bool> AnyAsync<T>(Expression<Func<T, bool>> filter = null) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(false))
             {
                 var repository = uow.GetRepository<T>();
                 return await repository.AnyAsync(filter);
@@ -381,7 +381,7 @@ namespace GenericRepository
         }
         public virtual int Count<T>(Expression<Func<T, bool>> filter = null) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(false))
             {
                 var repository = uow.GetRepository<T>();
                 return repository.Count(filter);
@@ -396,7 +396,7 @@ namespace GenericRepository
         }
         public virtual async Task<int> CountAsync<T>(Expression<Func<T, bool>> filter = null) where T : class, new()
         {
-            using (var uow = CreateUnitOfWork())
+            using (var uow = CreateUnitOfWork(false))
             {
                 var repository = uow.GetRepository<T>();
                 return await repository.CountAsync(filter);
