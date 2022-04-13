@@ -26,16 +26,16 @@ namespace GenericRepository
             return _context.SaveChanges();
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
             CheckDisposed();
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
-        public Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             CheckDisposed();
-            return _context.SaveChangesAsync(cancellationToken);
+            return await _context.SaveChangesAsync(cancellationToken);
         }
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, new()

@@ -198,35 +198,35 @@ namespace GenericRepository
             var repository = uow.GetRepository<T>();
             return repository.Get(keys);
         }
-        public virtual Task<T> GetAsync<T>(object id, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = true) where T : class, new()
+        public virtual async Task<T> GetAsync<T>(object id, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = true) where T : class, new()
         {
             using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
-                return repository.GetAsync(id, includes);
+                return await repository.GetAsync(id, includes);
             }
         }
-        public virtual Task<T> GetAsync<T>(bool trackChanges = true,params object[] keys) where T : class, new()
+        public virtual async Task<T> GetAsync<T>(bool trackChanges = true,params object[] keys) where T : class, new()
         {
             using (var uow = CreateUnitOfWork(trackChanges))
             {
                 var repository = uow.GetRepository<T>();
-                return repository.GetAsync(keys);
+                return await repository.GetAsync(keys);
             }
         }
-        public virtual Task<T> GetAsync<T>(IUnitOfWork uow, object id, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
+        public virtual async Task<T> GetAsync<T>(IUnitOfWork uow, object id, Func<IQueryable<T>, IQueryable<T>> includes = null) where T : class, new()
         {
             if (uow == null)
                 throw new ArgumentNullException("uow");
             var repository = uow.GetRepository<T>();
-            return repository.GetAsync(id, includes);
+            return await repository.GetAsync(id, includes);
         }
-        public virtual Task<T> GetAsync<T>(IUnitOfWork uow, params object[] keys) where T : class, new()
+        public virtual async Task<T> GetAsync<T>(IUnitOfWork uow, params object[] keys) where T : class, new()
         {
             if (uow == null)
                 throw new ArgumentNullException("uow");
             var repository = uow.GetRepository<T>();
-            return repository.GetAsync(keys);
+            return await repository.GetAsync(keys);
         }
 
         public virtual IEnumerable<T> Query<T>(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, Func<IQueryable<T>, IQueryable<T>> includes = null, bool trackChanges = false) where T : class, new()
