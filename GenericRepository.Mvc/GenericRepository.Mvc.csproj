@@ -15,23 +15,16 @@
     <Description>EntityFramework GenericRepository Mvc extensions</Description>
     <PackageTags>Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0</Version>
+    <Version>3.1</Version>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <RootNamespace>GenericRepository</RootNamespace>
     <Product>EntityFramework GenericRepository Mvc extensions</Product>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GenericRepository.EntityFrameworkCore" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
   </ItemGroup>
 
 </Project>
