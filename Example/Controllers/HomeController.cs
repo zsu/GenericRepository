@@ -6,20 +6,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GenericRepository;
 using Example.Entities;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Example.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IUowProvider _uowProvider;
+        private readonly IServiceProvider _serviceProder;
+        private readonly IGenericService<AppContext> _genericService;   
 
-        public HomeController(IUowProvider uowProvider)
+        public HomeController(IUowProvider uowProvider,IGenericService<AppContext> genericService, IServiceProvider serviceProder)
         {
             _uowProvider = uowProvider;
+            _serviceProder = serviceProder;
+            _genericService = genericService;
         }
 
         public async Task<IActionResult> Index()
         {
+            var result = _genericService.Query<Department>(null);
+            using (var uow = _genericService.CreateUnitOfWork())
+            {
+                var result1 = _genericService.Query<Department>(null);
+            }
+            //var appContext = _serviceProder.GetService<IGenericService<AppContext>>();
+            //var result1=appContext.Query<Department>(null);
             //await Seed();
             IEnumerable<Department> buildings = null;
 
@@ -159,9 +171,38 @@ namespace Example.Controllers
 
                 await uow.SaveChangesAsync();
             }
+
+            using(var uow=_genericService.CreateUnitOfWork())
+            {
+                var item = _genericService.Query<Employee>(null).FirstOrDefault();
+                if (item != null)
+                    item.Name = item.Name + "1";
+                _genericService.Update(item);
+                var item2= _genericService.Query<Employee>(x=>x.Name=="Bill").FirstOrDefault();
+                if (item2 != null)
+                {
+                    ChangeName(item2);
+                    _genericService.Update(item2);
+                }
+
+                uow.SaveChanges();
+            }
+            var items = _genericService.Query<Employee>(null).ToList();
+            using (var uow = _genericService.CreateUnitOfWork())
+            {
+                var item = _genericService.Query<Employee>(null).ToList();
+            }
             return View();
         }
-
+        private void ChangeName(Employee user)
+        {
+            using (var uow = _genericService.CreateUnitOfWork())
+            {
+                var item = _genericService.Query<Employee>(x=>x.Name==user.Name).FirstOrDefault();
+                if (item != null)
+                    item.Name = item.Name + "2";
+            }
+        }
 
         public IActionResult Error()
         {

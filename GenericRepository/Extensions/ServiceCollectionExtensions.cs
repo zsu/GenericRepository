@@ -15,7 +15,7 @@ namespace GenericRepository
 
         private static void RegisterDataAccess<TEntityContext>(IServiceCollection services, Action<DbContextOptionsBuilder> optionsAction) where TEntityContext : DbContext,IEntityContext//EntityContextBase<TEntityContext>
         {
-            services.TryAddTransient<IUowProvider, UowProvider>();
+            services.TryAddSingleton<IUowProvider, UowProvider>();
             DbContextOptionsBuilder<TEntityContext> optionBuilder = new DbContextOptionsBuilder<TEntityContext>();
             if (optionsAction != null)
             {
