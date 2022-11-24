@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>GenericRepository.Mvc</AssemblyName>
     <PackageId>GenericRepository.EntityFrameworkCore.Mvc</PackageId>
     <!--<RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>-->
@@ -15,7 +15,7 @@
     <Description>EntityFramework GenericRepository Mvc extensions</Description>
     <PackageTags>Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.1</Version>
+    <Version>4.0</Version>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <RootNamespace>GenericRepository</RootNamespace>
     <Product>EntityFramework GenericRepository Mvc extensions</Product>
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

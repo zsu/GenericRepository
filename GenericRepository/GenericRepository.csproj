@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>1.2.5</VersionPrefix>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>GenericRepository</AssemblyName>
     <PackageId>GenericRepository.EntityFrameworkCore</PackageId>
     <!--<RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>-->
@@ -15,12 +15,12 @@
     <Description>Generic repository for .net</Description>
     <PackageTags>Generic Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>4.5</Version>
+    <Version>5.1</Version>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
