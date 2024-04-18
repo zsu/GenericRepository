@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>1.2.5</VersionPrefix>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>GenericRepository</AssemblyName>
     <PackageId>GenericRepository.EntityFrameworkCore</PackageId>
     <!--<RuntimeFrameworkVersion>2.1.2</RuntimeFrameworkVersion>-->
@@ -15,7 +15,7 @@
     <Description>Generic repository for .net</Description>
     <PackageTags>Generic Repository, Entity Framework Core</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.1</Version>
+    <Version>6.0</Version>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
