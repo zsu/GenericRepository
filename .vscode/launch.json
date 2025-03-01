@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Example (MVC)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build example",
+      "program": "${workspaceFolder}/Example/bin/Debug/net9.0/Example.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Example",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Example/Views"
+      }
+    }
+  ]
+}
